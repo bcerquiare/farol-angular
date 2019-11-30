@@ -1,6 +1,6 @@
 {
   "name": "@farolinovacoes/farol-angular",
-  "version": "1.0.0",
+  "version": "1.0.01",
   "description": "Biblioteca Farol para angular",
   "main": "index.js",
   "scripts": {
