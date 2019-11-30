@@ -1,0 +1,9 @@
+<div [ngClass]="{'validation-feedback':true, 'is-invalid':isInvalid}">
+
+	<ng-content></ng-content>
+
+	<div *ngIf="isInvalid" class="invalid-feedback d-block">
+		{{ errors | json }}
+	</div>
+
+</div>

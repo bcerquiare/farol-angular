@@ -1,0 +1,19 @@
+{
+  "name": "@farolinovacoes/farol-angular",
+  "version": "1.0.0",
+  "description": "Biblioteca Farol para angular",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcerquiare/farol-angular.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bcerquiare/farol-angular/issues"
+  },
+  "homepage": "https://github.com/bcerquiare/farol-angular#readme"
+}
