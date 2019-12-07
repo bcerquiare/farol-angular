@@ -14,7 +14,8 @@
           "options": {
             "tsConfig": "projects/farol-angular/tsconfig.lib.json",
             "project": "projects/farol-angular/ng-package.json"
-          }
+          },
+		  "preserveSymlinks":true
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",

@@ -17,7 +17,8 @@
 		"build": "ng build",
 		"test": "ng test",
 		"lint": "ng lint",
-		"e2e": "ng e2e"
+		"e2e": "ng e2e",
+		"buildAndPublish": "ng build && cd dist/farol-angular && npm publish && cd ../../"
 	},
 	"private": true,
 	"dependencies": {

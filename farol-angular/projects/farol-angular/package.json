@@ -1,6 +1,13 @@
 {
-  "name": "farol-angular",
-  "version": "0.0.1",
+  "name": "@farolinovacoes/farol-angular",
+  "version": "1.0.11",
+  "description": "Biblioteca Farol para angular",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcerquiare/farol-angular.git"
+  },
+  "author": "",
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14"
