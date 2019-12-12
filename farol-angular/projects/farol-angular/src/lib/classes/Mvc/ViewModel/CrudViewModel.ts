@@ -14,9 +14,10 @@ export class CrudViewModel extends FormViewModel{
 
 	primaryKey:string
 
-	onRouteData(json:Json){
-		this.structure = json.data().structure()
-		this.setModel( json.data().model().data )
+	onRouteData(routeData:any){
+		console.log(routeData.data.data)
+		this.structure = routeData.data.data.structure
+		this.setModel( routeData.data.data.model )
 	}
 
 	mod():FormMod{
@@ -25,10 +26,6 @@ export class CrudViewModel extends FormViewModel{
 
 	setModel(data:any){
 		this.model = ( Array.isArray(data) && data.length === 0 ? {} : data )
-		console.log('setModel')
-		console.log(data)
-		console.log(this.model)
-		console.log('/setModel')
 	}
 
 	getKey(){
@@ -55,8 +52,8 @@ export class CrudViewModel extends FormViewModel{
 
 	store(){
 
-		this.http.post( (this.constructor as any).url(), this.model).subscribe(x => {
-			this.setModel( Json.fromRaw(x).data().model().data )
+		this.http.post( (this.constructor as any).url(), this.model).subscribe((x:Json) => {
+			this.setModel( x.data.model )
 		})
 
 	}
@@ -64,7 +61,7 @@ export class CrudViewModel extends FormViewModel{
 	update(){
 
 		this.http.put( (this.constructor as any).url() + '/'+this.getKey(), this.model).subscribe(x => {
-			this.setModel( Json.fromRaw(x).data().model().data )
+			this.setModel( x.data.model )
 		})
 
 	}
@@ -99,7 +96,7 @@ export class CrudViewModel extends FormViewModel{
 			case FormMod.view	: url = this.urlConfig( [route.params.id] )['view']; 	break
 		}
 
-		return http().get( url )
+		return http().jsonTo('get', url )
 
 	}
 

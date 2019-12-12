@@ -24,43 +24,76 @@ export class HttpService {
   		}
 	}
 
-	public baseUrl(){
+	public setBaseUrl(url:string):string{
+		return this.base = url
+	}
+
+	public baseUrl():string{
 		return this.base
 	}
 
-	public json(url:string):Observable<Json>{
+	public get<T = any>(url:string):Observable<T>{
+		return this.http.get<T>( this.baseUrl() + url)
+	}
+
+	public post<T = any>(url:string, data:any):Observable<T>{
+		return this.http.post<T>( this.baseUrl() + url, data, this.httpOptions )
+	}
+
+	public put<T = any>(url:string, data:any):Observable<T>{
+		return this.http.put<T>( this.baseUrl() + url, data, this.httpOptions )
+	}
+
+	public jsonTo(type:string, url:string, data?:any):Observable<Json>{
 
 		return new Observable<Json>((ob) => {
 
-			this.http.get( this.baseUrl() + url).subscribe((x) => {
-				ob.next(new Json(x))
-				ob.complete()
-			})
+			switch(type){
+				case 'get':
+
+					this.http.get( this.baseUrl() + url).subscribe((x:Json) => {
+						ob.next(x)
+						ob.complete()
+					}, (err) => {
+						ob.error(err)
+						ob.complete()
+					})
+
+				break
+
+				case 'post':
+
+					this.http.post( this.baseUrl() + url, data).subscribe((x:Json) => {
+						ob.next(x)
+						ob.complete()
+					}, (err) => {
+						ob.error(err)
+						ob.complete()
+					})
+
+				break
+
+				case 'put':
+
+					this.http.put( this.baseUrl() + url, data).subscribe((x:Json) => {
+						ob.next(x)
+						ob.complete()
+					}, (err) => {
+						ob.error(err)
+						ob.complete()
+					})
+
+				break
+
+				case 'delete':
+				break
+
+				default:
+				break
+			}
 
 		})
 
-	}
-
-	public get(url:string):Observable<any>{
-
-		return this.http.get( this.baseUrl() + url).pipe(
-			map(x => (x as any).data)
-		)
-
-	}
-
-	public post(url:string, data:any):Observable<any>{
-		console.log('Post')
-		console.log(data)
-		console.log('/Post')
-		return this.http.post( this.baseUrl() + url, data, this.httpOptions )
-	}
-
-	public put(url:string, data:any):Observable<any>{
-		return this.http.put( this.baseUrl() + url, data, this.httpOptions )
-	}
-
-	public jsonTo(url:string, className:any){
 	}
 
 }

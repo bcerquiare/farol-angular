@@ -14,8 +14,8 @@ export class ViewModel implements OnInit, AfterViewInit{
 
 		this.http = AppInjector.get(HttpService)
 
-		route.data.subscribe((e) => {
-			this.routeLoadedData = Json.fromRaw(e)
+		route.data.subscribe((e:Json) => {
+			this.routeLoadedData = e
 		})
 
 	}

@@ -1,7 +1,7 @@
 import { IJsonFarolData } from "../../interfaces/json/IJson"
 import { JsonObject } from "./JsonObject"
 
-export class JsonData{
+export class JsonDataObject{
 
 	private _items:Array<any>
 	private _structure:{[key:string]:any}

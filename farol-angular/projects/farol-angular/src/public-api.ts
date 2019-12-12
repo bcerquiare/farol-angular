@@ -19,8 +19,6 @@ export * from './lib/services/Http/Http'
 
 // classes
 export * from './lib/classes/Json/Json'
-export * from './lib/classes/Json/JsonData'
-export * from './lib/classes/Json/JsonObject'
 export * from './lib/classes/Mvc/Model'
 export * from './lib/classes/Mvc/ViewModel'
 export * from './lib/classes/Mvc/Model/ModelCollection'
