@@ -22,11 +22,17 @@ export class ViewModel implements OnInit, AfterViewInit{
 
 	ngOnInit(){
 
+		this.onBeforeInit()
+
 		if(this.routeLoadedData !== undefined){
 			this.onRouteData(this.routeLoadedData)
 		}
 
 		this.onInit()
+
+	}
+
+	onBeforeInit(){
 
 	}
 
