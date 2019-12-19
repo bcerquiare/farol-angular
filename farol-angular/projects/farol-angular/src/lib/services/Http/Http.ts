@@ -15,12 +15,12 @@ export class HttpService {
 	constructor(private http:HttpClient) {
 		this.base = 'http://localhost/Knn/Novo/backend/public/index.php/api/1/'
 		this.httpOptions = {
-			'headers': new HttpHeaders({
+			/*headers': new HttpHeaders({
 				'Content-Type': 'application/json',
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE, OPTIONS',
 				'Access-Control-Allow-Headers': 'x-auth, content-type, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
-			})
+			})*/
   		}
 	}
 
@@ -28,20 +28,30 @@ export class HttpService {
 		return this.base = url
 	}
 
+	public makeUrl(url:string):string{
+
+		if( url.startsWith('http') ){
+			return url
+		}else{
+			return this.baseUrl() + url
+		}
+
+	}
+
 	public baseUrl():string{
 		return this.base
 	}
 
 	public get<T = any>(url:string):Observable<T>{
-		return this.http.get<T>( this.baseUrl() + url)
+		return this.http.get<T>( this.makeUrl(url) )
 	}
 
 	public post<T = any>(url:string, data:any):Observable<T>{
-		return this.http.post<T>( this.baseUrl() + url, data, this.httpOptions )
+		return this.http.post<T>( this.makeUrl(url), data, this.httpOptions )
 	}
 
 	public put<T = any>(url:string, data:any):Observable<T>{
-		return this.http.put<T>( this.baseUrl() + url, data, this.httpOptions )
+		return this.http.put<T>( this.makeUrl(url), data, this.httpOptions )
 	}
 
 	public jsonTo(type:string, url:string, data?:any):Observable<Json>{
@@ -51,7 +61,7 @@ export class HttpService {
 			switch(type){
 				case 'get':
 
-					this.http.get( this.baseUrl() + url).subscribe((x:Json) => {
+					this.http.get( this.makeUrl(url) ).subscribe((x:Json) => {
 						ob.next(x)
 						ob.complete()
 					}, (err) => {
@@ -63,7 +73,7 @@ export class HttpService {
 
 				case 'post':
 
-					this.http.post( this.baseUrl() + url, data).subscribe((x:Json) => {
+					this.http.post( this.makeUrl(url), data).subscribe((x:Json) => {
 						ob.next(x)
 						ob.complete()
 					}, (err) => {
@@ -75,7 +85,7 @@ export class HttpService {
 
 				case 'put':
 
-					this.http.put( this.baseUrl() + url, data).subscribe((x:Json) => {
+					this.http.put( this.makeUrl(url), data).subscribe((x:Json) => {
 						ob.next(x)
 						ob.complete()
 					}, (err) => {
