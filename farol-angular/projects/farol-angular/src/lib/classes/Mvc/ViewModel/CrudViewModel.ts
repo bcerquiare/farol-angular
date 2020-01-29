@@ -3,6 +3,7 @@ import { Json } from '../../json/Json'
 import { Observable } from 'rxjs'
 import { ActivatedRouteSnapshot } from '@angular/router'
 import { http } from '../../../helpers'
+import * as _ from 'underscore'
 
 export enum FormMod{
 	create = 1,
@@ -15,8 +16,13 @@ export class CrudViewModel extends FormViewModel{
 	primaryKey:string
 
 	onRouteData(routeData:any){
+
 		this.structure = routeData.data.data.structure
-		this.setModel( routeData.data.data.model )
+
+		if(routeData.data.data.model && !_.isEmpty(routeData.data.data.model) ){
+			this.setModel( Object.assign( {}, routeData.data.data.model ) )
+		}
+
 	}
 
 	mod():FormMod{
@@ -29,17 +35,19 @@ export class CrudViewModel extends FormViewModel{
 
 	setModel(data:any){
 
-		const d:any = ( Array.isArray(data) && data.length === 0 ? {} : data )
+		var d:any = ( Array.isArray(data) && data.length === 0 ? {} : data )
+		var modelData:any = Object.assign({}, d)
 
-		this.beforeSetModel(d)
-		this.model = (d)
+		this.beforeSetModel(modelData)
+
+		this.model = modelData
 
 		this.shallow = Object.assign({}, this.model)
-		this.onModelData()
+		this.onModelData(modelData)
 
 	}
 
-	onModelData(){
+	onModelData(modelData:any){
 
 	}
 
@@ -59,30 +67,31 @@ export class CrudViewModel extends FormViewModel{
 		return this.getKey() !== 0 ? true : false
 	}
 
-	beforeSave(){
+	beforeSave(modelData:any){
 	}
 
 	save(){
 
-		this.beforeSave()
+		var modelData:any = Object.assign({}, this.model)
+		this.beforeSave(modelData)
 
 		if( this.isCreating() ){
 
-			const data:any = this.beforeStore(this.model)
-			this.store(data)
+			this.beforeStore(modelData)
+			this.store(modelData)
 
 		}else if( this.isEditing() ){
 
-			const data:any = this.beforeUpdate(this.model)
-			this.update(data)
+			this.beforeUpdate(modelData)
+			this.update(modelData)
 
 		}
 
-		this.afterSave()
+		this.afterSave(modelData)
 
 	}
 
-	afterSave(){
+	afterSave(data:any){
 
 	}
 

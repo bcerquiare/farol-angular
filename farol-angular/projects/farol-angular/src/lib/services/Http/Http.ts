@@ -54,6 +54,10 @@ export class HttpService {
 		return this.http.put<T>( this.makeUrl(url), data, this.httpOptions )
 	}
 
+	public delete<T = any>(url:string):Observable<T>{
+		return this.http.delete<T>( this.makeUrl(url), this.httpOptions )
+	}
+
 	public jsonTo(type:string, url:string, data?:any):Observable<Json>{
 
 		return new Observable<Json>((ob) => {
